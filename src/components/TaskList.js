@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { TaskCard } from './TaskCard';
 import { BoxCard } from './BoxCard';
+import "./TaskList.css"
 
 export const TaskList = ({title, info}) => {
   const [tasks, setTasks] = useState([
@@ -10,16 +11,23 @@ export const TaskList = ({title, info}) => {
   ]);
 
   const [show, setShow] = useState(true);
+  const styles = {
+    color: show ? "#3D8361" : "#be3434", 
+    border:"2px solid",
+    borderColor: show ? "#3D8361" : "#be3434", 
+    padding:"20px",
+    borderRadius: "5px"
+  }
 
   function handleDelete(id){
     setTasks(tasks.filter(task => task.id !== id))
   }
 
   return (
-    <>
-      <h1>{title}</h1>
+    <section className='tasklist'>
+      <h1 style={styles}>{title}</h1>
       <ul>
-        <button className="trigger" onClick={() => setShow(!show)}>Toggle</button>
+        <button className="trigger" onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
         {show && tasks.map((task) => (
           <TaskCard info={info} key={task.id} task={task} handleDelete={handleDelete}/>
         ))}
@@ -36,6 +44,6 @@ export const TaskList = ({title, info}) => {
         <p className="title">Lorem, ipsum dolor.</p>
         <p className="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores et deleniti repellendus porro sint dolores, reiciendis id ab minima. Molestiae, eveniet ratione. Fugiat accusamus voluptatem beatae facere qui nulla libero.</p>
       </BoxCard>
-    </>
+    </section>
   )
 }
